@@ -23,11 +23,11 @@ np.random.shuffle(data)
 
 data_dev = data[0:1000].T
 Y_dev = data_dev[0]
-X_dev = data_dev[1:n]
+X_dev = data_dev[1:n] / 255
 
 data_train = data[1000:m].T
 Y_train = data_train[0]
-X_train = data_train[1:n]
+X_train = data_train[1:n] / 255
 
 
 def init_params():
@@ -47,7 +47,9 @@ def softmax(Z):
     # Subtract the sum from each element. Then, apply the exp function.
     # Now exp(z_i - sum) = exp(z_i) / ex(sum), as wanted.
     # return np.exp(Z - np.sum(Z))
-    return np.exp(Z) / np.sum(np.exp(Z), axis=0)
+    Z_max = np.max(Z, axis=0)
+    Z_minus_max = Z - Z_max
+    return np.exp(Z_minus_max) / np.sum(np.exp(Z_minus_max), axis=0)
 
 
 def forward_prop(W1, b1, W2, b2, X):
