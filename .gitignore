@@ -1,0 +1,6 @@
+.pytest_cache
+*.zip
+*.pdf
+train.csv/
+__pycache__
+.idea
